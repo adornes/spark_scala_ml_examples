@@ -1,27 +1,21 @@
 package com.adornes.spark.kaggle
 
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
-import org.apache.spark.SparkConf
-
 import org.apache.spark.ml.feature.StringIndexer
 import org.apache.spark.ml.feature.VectorAssembler
 import org.apache.spark.ml.regression.{RandomForestRegressor, RandomForestRegressionModel}
-import org.apache.spark.ml.{Pipeline, PipelineModel, PipelineStage}
+import org.apache.spark.ml.{Pipeline, PipelineModel}
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.apache.spark.ml.tuning.ParamGridBuilder
 import org.apache.spark.ml.tuning.CrossValidator
 
 import org.apache.spark.sql._
-import org.apache.spark.sql.types._
 import org.apache.spark.sql.functions._
 
 import org.apache.spark.mllib.evaluation.RegressionMetrics
 
 import scopt.OptionParser
-import scopt.Read
 
-import org.apache.log4j.{Level, LogManager, PropertyConfigurator}
+import org.apache.log4j.LogManager
 
 /**
   * Simple and silly solution for the "Allstate Claims Severity" competition on Kaggle
