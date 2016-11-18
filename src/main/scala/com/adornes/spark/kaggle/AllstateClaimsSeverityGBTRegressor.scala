@@ -38,7 +38,9 @@ object AllstateClaimsSeverityGBTRegressor {
                     outputFile: String = "",
                     algoMaxIter: Seq[Int] = Seq(30),
                     algoMaxDepth: Seq[Int] = Seq(3),
-                    numFolds: Int = 10, sample: Double = 1.0)
+                    numFolds: Int = 10,
+                    trainSample: Double = 1.0,
+                    testSample: Double = 1.0)
 
   /*
    * Computation logic
@@ -91,7 +93,7 @@ object AllstateClaimsSeverityGBTRegressor {
 
     val data = trainInput.withColumn("label", toDouble(trainInput("loss")))
       .drop("loss")
-      .sample(false, params.sample)
+      .sample(false, params.trainSample)
 
     val splits = data.randomSplit(Array(0.7, 0.3))
     val (trainingData, validationData) = (splits(0), splits(1))
@@ -177,7 +179,8 @@ object AllstateClaimsSeverityGBTRegressor {
     val featureImportances = bestModel.stages.last.asInstanceOf[GBTRegressionModel].featureImportances.toArray
 
     val output = "\n=====================================================================\n" +
-      s"Param sample: ${params.sample}\n" +
+      s"Param trainSample: ${params.trainSample}\n" +
+      s"Param testSample: ${params.testSample}\n" +
       s"TrainingData count: ${trainingData.count}\n" +
       s"ValidationData count: ${validationData.count}\n" +
       s"TestData count: ${testInput.count}\n" +
@@ -254,8 +257,11 @@ object AllstateClaimsSeverityGBTRegressor {
       opt[Int]("numFolds").action((x, c) =>
         c.copy(numFolds = x)).text("Value for number of folds for cross validation")
 
-      opt[Double]("sample").action((x, c) =>
-        c.copy(sample = x)).text("Sample fraction from 0.0 to 1.0")
+      opt[Double]("trainSample").action((x, c) =>
+        c.copy(trainSample = x)).text("Sample fraction from 0.0 to 1.0 for train data")
+
+      opt[Double]("testSample").action((x, c) =>
+        c.copy(testSample = x)).text("Sample fraction from 0.0 to 1.0 for test data")
 
     }
 
