@@ -200,7 +200,7 @@ object AllstateClaimsSeverityRandomForestRegressor {
       s"Validation data Explained variance = ${validRegressionMetrics.explainedVariance}\n" +
       "=====================================================================\n" +
       //  s"CV params explained: ${cvModel.explainParams}\n" +
-      //  s"RandomForest params explained: ${bestModel.stages(1).asInstanceOf[RandomForestRegressionModel].explainParams}\n" +
+      //  s"RandomForest params explained: ${bestModel.stages.last.asInstanceOf[RandomForestRegressionModel].explainParams}\n" +
       s"RandomForest features importances:\n ${featureCols.zip(featureImportances).map(t => s"\t${t._1} = ${t._2}").mkString("\n")}\n" +
       "=====================================================================\n"
 
@@ -211,10 +211,13 @@ object AllstateClaimsSeverityRandomForestRegressor {
     log.info("Run prediction over test dataset")
     // *****************************************
 
+    // Predicts and saves file ready for Kaggle!
     cvModel.transform(testData)
       .select("id", "prediction")
       .withColumnRenamed("prediction", "loss")
-      .write.format("com.databricks.spark.csv")
+      .coalesce(1)
+      .write.format("csv")
+      .option("header", "true")
       .save(params.outputFile)
   }
 
