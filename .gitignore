@@ -17,10 +17,12 @@ bin
 
 # IntelliJ
 spark_scala_ml_examples.iml
+metastore_db
 
 # SBT
 dist
 project/boot
+project/project
 project/target
 project/plugins/target
 project/.sbtserver*
