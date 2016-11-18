@@ -71,19 +71,17 @@ object AllstateClaimsSeverityGBTRegressor {
       .option("header", "true")
       .option("inferSchema", "true")
       .csv(params.trainInput)
+      .cache
 
     val testInput = sparkSession.read
       .option("header", "true")
       .option("inferSchema", "true")
       .csv(params.testInput)
+      .cache
 
     // *******************************************
     log.info("Preparing data for training model")
     // *******************************************
-
-    trainInput.cache
-
-    val testData = testInput.sample(false, params.testSample).cache
 
     val data = trainInput.withColumnRenamed("loss", "label")
       .drop("loss")
@@ -94,6 +92,8 @@ object AllstateClaimsSeverityGBTRegressor {
 
     trainingData.cache
     validationData.cache
+
+    val testData = testInput.sample(false, params.testSample).cache
 
     // **************************************************
     log.info("Building Machine Learning pipeline")
