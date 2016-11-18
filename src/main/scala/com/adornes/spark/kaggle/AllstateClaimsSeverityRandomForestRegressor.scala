@@ -78,7 +78,6 @@ object AllstateClaimsSeverityRandomForestRegressor {
       .option("header", "true")
       .option("inferSchema", "true")
       .csv(params.testInput)
-      .sample(false, params.testSample)
 
     // *******************************************
     log.info("Preparing data for training model")
@@ -86,9 +85,9 @@ object AllstateClaimsSeverityRandomForestRegressor {
 
     trainInput.cache
 
-    val toDouble = udf[Double, String](_.toDouble)
+    val testData = testInput.sample(false, params.testSample).cache
 
-    val data = trainInput.withColumn("label", toDouble(trainInput("loss")))
+    val data = trainInput.withColumnRenamed("loss", "label")
       .drop("loss")
       .sample(false, params.trainSample)
 
@@ -110,7 +109,7 @@ object AllstateClaimsSeverityRandomForestRegressor {
       .map(c => new StringIndexer()
         .setInputCol(c)
         .setOutputCol(categNewCol(c))
-        .fit(trainInput))
+        .fit(trainInput.select(c).union(testInput.select(c))))
 
     // Function to remove categorical columns with too many categories
     def removeTooManyCategs(c: String): Boolean = !(c matches "cat(109$|110$|112$|113$|116$)")
@@ -181,7 +180,7 @@ object AllstateClaimsSeverityRandomForestRegressor {
       s"Param testSample: ${params.testSample}\n" +
       s"TrainingData count: ${trainingData.count}\n" +
       s"ValidationData count: ${validationData.count}\n" +
-      s"TestData count: ${testInput.count}\n" +
+      s"TestData count: ${testData.count}\n" +
       "=====================================================================\n" +
       s"Param algoNumTrees = ${params.algoNumTrees.mkString(",")}\n" +
       s"Param algoMaxDepth = ${params.algoMaxDepth.mkString(",")}\n" +
@@ -212,7 +211,7 @@ object AllstateClaimsSeverityRandomForestRegressor {
     log.info("Run prediction over test dataset")
     // *****************************************
 
-    cvModel.transform(testInput)
+    cvModel.transform(testData)
       .select("id", "prediction")
       .withColumnRenamed("prediction", "loss")
       .write.format("com.databricks.spark.csv")
