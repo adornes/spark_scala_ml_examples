@@ -48,40 +48,41 @@ object AllstateClaimsSeverityGBTRegressor {
   def process(params: Params) {
 
     /*
-     * Initializing Spark context and logging
+     * Initializing Spark session and logging
      */
 
-    val conf = new SparkConf().setAppName("AllstateClaimsSeverityGBTRegressor")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
-    import sqlContext.implicits._
+    val sparkSession = SparkSession.builder.
+      appName("AllstateClaimsSeverityGBTRegressor")
+      .getOrCreate()
+
+    import sparkSession.implicits._
 
     val log = LogManager.getRootLogger
-
 
     // ****************************
     log.info("Loading input data")
     // ****************************
 
     if (params.trainInput.startsWith("s3://")) {
-      sc.hadoopConfiguration.set("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
-      sc.hadoopConfiguration.set("spark.hadoop.fs.s3a.access.key", params.s3AccessKey)
-      sc.hadoopConfiguration.set("spark.hadoop.fs.s3a.secret.key", params.s3SecretKey)
+      sparkSession.conf.set("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
+      sparkSession.conf.set("spark.hadoop.fs.s3a.access.key", params.s3AccessKey)
+      sparkSession.conf.set("spark.hadoop.fs.s3a.secret.key", params.s3SecretKey)
     }
 
     // *************************************************
     log.info("Reading data from train.csv file")
     // *************************************************
 
-    val trainInput = sqlContext.read.format("com.databricks.spark.csv")
+    val trainInput = sparkSession.read
       .option("header", "true")
       .option("inferSchema", "true")
-      .load(params.trainInput)
+      .csv(params.trainInput)
 
-    val testInput = sqlContext.read.format("com.databricks.spark.csv")
+    val testInput = sparkSession.read
       .option("header", "true")
       .option("inferSchema", "true")
-      .load(params.testInput)
+      .csv(params.testInput)
+      .sample(false, params.testSample)
 
     // *******************************************
     log.info("Preparing data for training model")
@@ -213,7 +214,7 @@ object AllstateClaimsSeverityGBTRegressor {
     log.info("Run prediction over test dataset")
     // *****************************************
 
-    val testPrediction = cvModel.transform(testInput)
+    cvModel.transform(testInput)
       .select("id", "prediction")
       .withColumnRenamed("prediction", "loss")
       .write.format("com.databricks.spark.csv")
