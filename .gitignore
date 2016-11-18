@@ -1,0 +1,30 @@
+# general
+*~
+*.log
+tmp
+dump
+*.DS_Store
+
+# Scala IDE
+.idea
+.idea_modules
+.settings
+.cache*
+.project
+.classpath
+.scala_dependencies
+bin
+
+# IntelliJ
+spark_scala_ml_examples.iml
+
+# SBT
+dist
+project/boot
+project/target
+project/plugins/target
+project/.sbtserver*
+target
+.target
+.tmpBin
+.sbtserver*
