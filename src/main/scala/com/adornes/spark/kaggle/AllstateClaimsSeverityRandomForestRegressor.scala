@@ -86,7 +86,6 @@ object AllstateClaimsSeverityRandomForestRegressor {
     // *******************************************
 
     val data = trainInput.withColumnRenamed("loss", "label")
-      .drop("loss")
       .sample(false, params.trainSample)
 
     val splits = data.randomSplit(Array(0.7, 0.3))
@@ -235,10 +234,10 @@ object AllstateClaimsSeverityRandomForestRegressor {
       head("AllstateClaimsSeverityRandomForestRegressor", "1.0")
 
       opt[String]("s3AccessKey").required().action((x, c) =>
-        c.copy(s3AccessKey = x)).text("The access key is for S3")
+        c.copy(s3AccessKey = x)).text("The access key for S3")
 
       opt[String]("s3SecretKey").required().action((x, c) =>
-        c.copy(s3SecretKey = x)).text("The secret key is for S3")
+        c.copy(s3SecretKey = x)).text("The secret key for S3")
 
       opt[String]("trainInput").required().valueName("<file>").action((x, c) =>
         c.copy(trainInput = x)).text("Path to file/directory for training data")
@@ -259,7 +258,7 @@ object AllstateClaimsSeverityRandomForestRegressor {
         c.copy(algoMaxBins = x)).text("One or more values for depth limit")
 
       opt[Int]("numFolds").action((x, c) =>
-        c.copy(numFolds = x)).text("Value for number of folds for cross validation")
+        c.copy(numFolds = x)).text("Number of folds for K-fold Cross Validation")
 
       opt[Double]("trainSample").action((x, c) =>
         c.copy(trainSample = x)).text("Sample fraction from 0.0 to 1.0 for train data")
