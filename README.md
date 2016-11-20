@@ -289,6 +289,6 @@ That's it! In the list of steps you will see your step running and will also hav
 
 Don't hesitate to contact me directly or create *pull requests* here if you have any correction or suggestion for the code or for this documentation! Thanks! 
 
-[Github](https://www.github.com/adornes)
-[Twitter](https://twitter.com/daniel_adornes)
-[LinkedIn](https://www.linkedin.com/in/adornes)
+* [Github](https://www.github.com/adornes)
+* [Twitter](https://twitter.com/daniel_adornes)
+* [LinkedIn](https://www.linkedin.com/in/adornes)
