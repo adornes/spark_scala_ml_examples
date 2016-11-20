@@ -285,10 +285,10 @@ As previously mentioned, [scopt](https://github.com/scopt/scopt) is the tool tha
 That's it! In the list of steps you will see your step running and will also have access to system logs. Detailed logs will be saved to the path defined in your cluster configuration. Additionally, EMR allows the user to clone both steps and clusters, being thus not required to type everything again.
 
 
-Corrections/Suggestions or just a Hello!
-----------------------------------------
+### Corrections/Suggestions or just a Hello!
 
-Don't hesitate to contact me or create *pull requests* here if you have any correction or suggestions for the code or for this documentation.
+Don't hesitate to contact me directly or create *pull requests* here if you have any correction or suggestion for the code or for this documentation! Thanks! 
 
-[github.com/adornes](github.com/adornes)
-
+[Github](https://www.github.com/adornes)
+[Twitter](https://twitter.com/daniel_adornes)
+[LinkedIn](https://www.linkedin.com/in/adornes)
