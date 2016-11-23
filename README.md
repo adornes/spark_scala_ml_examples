@@ -263,19 +263,13 @@ As previously mentioned, [scopt](https://github.com/scopt/scopt) is the tool tha
 
 **EMR** plays the role of abstracting most of the background setup for a cluster with Spark/Hadoop ecosystems. You can actually build as many clusters as you want (and can afford). By the way, the cost for EC2 instances used with EMR is considerably reduced (it is detailed [here](https://aws.amazon.com/emr/pricing)).
  
- ##### Creating the cluster
- 
  Although considerably abstracting the cluster configuration, EMR allows the user to customize almost any of the background details through the *advanced* options of the steps of creating a cluster. For instance, for these Spark scripts, you'll need to customize the Java version, according to [this link](http://docs.aws.amazon.com/ElasticMapReduce/latest/ReleaseGuide/emr-configure-apps.html#configuring-java8). Besides that, everything is created using the options provided. So, going step by step, log in to your AWS console, in the *Services* tab look for *EMR*, select to create a cluster, choose *Go to advanced options* on the top of the screen and fill the options as follows: 
  
  * **Vendor** - Leave it as *Amazon*
  
  * **Release** - Choose *emr-5.1.0*. Select *Hadoop* and *Spark*. I'd also recommend you to select *Zeppelin* (for working with notebooks) and *Ganglia* (for detailed monitoring of your cluster).
  
- * **Release** - Choose *emr-5.1.0*
- 
  * **Edit software settings (optional)** - Ensure the option *Enter configuration* is selected and copy here the configurations of [the aforementioned link](http://docs.aws.amazon.com/ElasticMapReduce/latest/ReleaseGuide/emr-configure-apps.html#configuring-java8)
-   
- * **Release** - Choose *emr-5.1.0*
    
  * **Add steps** - You don't need to do it at this moment. I prefer to do it later, after your cluster is started and ready for processing stuff. Click Next for *Hardware* settings.
  
