@@ -3,12 +3,33 @@ Spark Scala Machine Learning Examples
 
 This project aims at demonstrating how to build a [Spark 2.0](https://spark.apache.org/releases/spark-release-2-0-0.html) application with [Scala](http://www.scala-lang.org/) for solving Machine Learning problems, packaged with [SBT](http://www.scala-sbt.org/) and ready to be run locally or on any cloud platform such as [AWS Elastic MapReduce (EMR)](https://aws.amazon.com/emr/).  
 
-Each class/object in the package can be run as an individual application, as described below.  
+Each Scala script in the package can be run as an individual application, as described in the next sections.  
 
-### AllstateClaimsSeverityGBTRegressor and AllstateClaimsSeverityRandomForestRegressor
+### Why Spark?
 
-[Kaggle](https://www.kaggle.com) and [Allstate](https://www.allstate.com/) launched a Machine Learning [competition](https://www.kaggle.com/c/allstate-claims-severity) on predicting *how severe is an insurance claim*. These two Scala scripts obtain the training and test input datasets, from local or [S3](https://aws.amazon.com/s3/details/) environment, and train [Gradient Boosting](https://en.wikipedia.org/wiki/Gradient_boosting) and [Random Forest](https://en.wikipedia.org/wiki/Random_forest) models over it, respectively.
+Since almost all personal computers nowadays have many Gigabytes of RAM (and it is in an accelerated growing) and powerful CPUs and GPUs, many real-world machine learning problems can be solved with a single computer and frameworks such as [ScikitLearn](http://scikit-learn.org/), with no need of a distributed system, this is, a cluster of many computers. Sometimes, though, data grows and keeps growing. Who never heard the term "Big Data"? When it happens, a non-distributed/scalable solution may solve for a short time, but afterwards such solution will need to be reviewed and maybe significantly changed.
+
+Spark started as a research project at [UC Berkeley](http://www.berkeley.edu/) in the [AMPLab](https://amplab.cs.berkeley.edu/), a research group that focuses on big data analytics. Since then, it became an [Apache](https://www.apache.org/) project and has delivered many new releases, reaching a consistent maturity with a wide range of functionalities. Most of all, Spark can perform data processing over some Gigabytes or hundreds of Petabytes with basically the same programming code, only requiring a proper cluster of machines in the background (check [this link](https://databricks.com/blog/2014/10/10/spark-petabyte-sort.html)). In some very specific cases the developer may need to tune the process by changing granularity of data distribution and other related aspects, but in general there are plenty of providers that automate all this cluster configuration for the developer. For instance, the scripts in this repository used [AWS Elastic MapReduce (EMR)](https://aws.amazon.com/emr/), which plays exactly this role. 
+
+
+### Why Scala?
+
+In my humble opinion, [Scala](https://www.scala-lang.org/) is a beautiful and very well-devised programming language, with a strong scientific background from professor [Martin Odersky's research team](https://scala.epfl.ch/) at [Ecole Polytechnique Fédérale de Lausanne](https://www.epfl.ch). 
+
+In more technical terms, Scala was created with a strong functional paradigm, but also fully compatible with the imperative object-oriented paradigm from JVM platform, taking advantage of all JVM's decades of evolution and maturity. In summary, everything one does in Java can be done in Scala and much more with a much shorter and cleaner code.
+
+It isn't a surprise that Spark is built precisely over Scala, although it also provides programming interfaces for [Python](https://www.python.org/), [R](https://www.r-project.org/) and, naturally, Java.
+
+
+### Scripts: AllstateClaimsSeverityGBTRegressor and AllstateClaimsSeverityRandomForestRegressor
+
+[Allstate Corporation](https://www.allstate.com), the second largest insurance company in United States, founded in 1931, recently launched a Machine Learning recruitment challenge in partnership with [Kaggle](https://www.kaggle.com/c/allstate-claims-severity) asking for competitors, Data Science professionals and enthusiasts, to predict the cost, and hence the severity, of claims.
+ 
+The competition organizers provide the competitors with more than 300.000 examples with masked and anonymous data consisting of more than 100 categorical and numerical attributes, thus being compliant with confidentiality constraints and still more than enough for building and evaluating a variety of Machine Learning techniques. 
+
+These two Scala scripts obtain the training and test input datasets, from local or [S3](https://aws.amazon.com/s3/details/) environment, and train [Gradient Boosting](https://en.wikipedia.org/wiki/Gradient_boosting) and [Random Forest](https://en.wikipedia.org/wiki/Random_forest) models over it, respectively.
 The objective is to demonstrate the use of [Spark 2.0](https://spark.apache.org/releases/spark-release-2-0-0.html) Machine Learning pipelines with [Scala language](http://www.scala-lang.org/), [S3](https://aws.amazon.com/s3/details/) integration and some general good practices for building Machine Learning models. In order to keep this main objective, more sophisticated techniques (such as a thorough exploratory data analysis and feature engineering) are intentionally omitted.
+
 
 #### Flow of Execution and Overall Learnings
 
@@ -278,8 +299,8 @@ As previously mentioned, [scopt](https://github.com/scopt/scopt) is the tool tha
  --s3AccessKey YOUR_AWS_ACCESS_KEY_HERE --s3SecretKey YOUR_AWS_SECRET_KEY_HERE 
  --trainInput "s3:/path/to/the/train.csv" --testInput "s3:/path/to/the/test.csv" 
  --outputFile  "s3:/path/to/any/name/for/submission.csv" 
- --algoNumTrees 3 --algoMaxDepth 3 --algoMaxBins 32 --numFolds 5 
- --trainSample 0.01 --testSample 0.01
+ --algoNumTrees 20,40,60 --algoMaxDepth 5,7,9 --algoMaxBins 32 --numFolds 10 
+ --trainSample 1.0 --testSample 1.0
  ```
 
 That's it! In the list of steps you will see your step running and will also have access to system logs. Detailed logs will be saved to the path defined in your cluster configuration. Additionally, EMR allows the user to clone both steps and clusters, being thus not required to type everything again.
