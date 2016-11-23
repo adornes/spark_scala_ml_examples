@@ -308,9 +308,9 @@ That's it! In the list of steps you will see your step running and will also hav
 
 #### Submission on Kaggle
 
-As mentioned along the explanations, many improvements could/should be done in terms of exploratory data analysis, feature engineering, evaluating other models (starting by the simplest ones, as Linear Regression) and then decreasing the error of the predictions.
+As mentioned along the explanations, many improvements could/should be done in terms of exploratory data analysis, feature engineering, evaluating other models (starting by the simplest ones, as Linear Regression) and then decreasing the predictions error.
  
-For being over-simplistic, this model achieved a Mean Absolute Error (MAE) of XXXXX in the public leaderboard, far from the top positions.
+For being over-simplistic, this model achieved a Mean Absolute Error (MAE) of 1286 in the [public leaderboard](https://www.kaggle.com/c/allstate-claims-severity/leaderboard), far from the top positions.
 
 The submission file and the detailed metrics of the model evaluation can be found under the `output` directory.
 
