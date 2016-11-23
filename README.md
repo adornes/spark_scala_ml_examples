@@ -306,6 +306,15 @@ As previously mentioned, [scopt](https://github.com/scopt/scopt) is the tool tha
 That's it! In the list of steps you will see your step running and will also have access to system logs. Detailed logs will be saved to the path defined in your cluster configuration. Additionally, EMR allows the user to clone both steps and clusters, being thus not required to type everything again.
 
 
+#### Submission on Kaggle
+
+As mentioned along the explanations, many improvements could/should be done in terms of exploratory data analysis, feature engineering, evaluating other models (starting by the simplest ones, as Linear Regression) and then decreasing the error of the predictions.
+ 
+For being over-simplistic, this model achieved a Mean Absolute Error (MAE) of XXXXX in the public leaderboard, far from the top positions.
+
+The submission file and the detailed metrics of the model evaluation can be found under the `output` directory.
+
+
 ### Corrections/Suggestions or just a Hello!
 
 Don't hesitate to contact me directly or create *pull requests* here if you have any correction or suggestion for the code or for this documentation! Thanks! 
