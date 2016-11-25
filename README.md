@@ -249,7 +249,7 @@ As previously mentioned, [scopt](https://github.com/scopt/scopt) is the tool tha
     ```
     AllstateClaimsSeverityRandomForestRegressor 1.0
     Usage: AllstateClaimsSeverityRandomForestRegressor [options]
-    
+
       --s3AccessKey <value>    The access key for S3
       --s3SecretKey <value>    The secret key for S3
       --trainInput <file>      Path to file/directory for training data
