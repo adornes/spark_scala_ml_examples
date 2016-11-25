@@ -152,7 +152,7 @@ object AllstateClaimsSeverityRandomForestRegressor {
 
 
     // ************************************************************
-    log.info("Training model with GradientBoostedTrees algorithm")
+    log.info("Training model with RandomForest algorithm")
     // ************************************************************
 
     val cvModel = cv.fit(trainingData)
