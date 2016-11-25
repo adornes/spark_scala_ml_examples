@@ -240,31 +240,31 @@ Although not so labored in terms of Machine Learning techniques, these scripts p
 
 Assuming you have your local environment all set up with Java 8 or higher, Scala 2.11.x and Spark 2.0, you can run the desired script (here, AllstateClaimsSeverityRandomForestRegressor) with the following command structure:
 
-    ```
-    spark-submit --class com.adornes.spark.kaggle.AllstateClaimsSeverityRandomForestRegressor the_jar_file.jar --s3AccessKey YOUR_AWS_ACCESS_KEY_HERE --s3SecretKey YOUR_AWS_SECRET_KEY_HERE --trainInput "file:///path/to/the/train.csv" --testInput "file:///path/to/the/test.csv" --outputFile  "file:///path/to/any/name/for/submission.csv" --algoNumTrees 3 --algoMaxDepth 3 --algoMaxBins 32 --numFolds 5 --trainSample 0.01 --testSample 0.01
-    ```
+```
+spark-submit --class com.adornes.spark.kaggle.AllstateClaimsSeverityRandomForestRegressor the_jar_file.jar --s3AccessKey YOUR_AWS_ACCESS_KEY_HERE --s3SecretKey YOUR_AWS_SECRET_KEY_HERE --trainInput "file:///path/to/the/train.csv" --testInput "file:///path/to/the/test.csv" --outputFile  "file:///path/to/any/name/for/submission.csv" --algoNumTrees 3 --algoMaxDepth 3 --algoMaxBins 32 --numFolds 5 --trainSample 0.01 --testSample 0.01
+```
 
 As previously mentioned, [scopt](https://github.com/scopt/scopt) is the tool that enables the nice names for parameters at command line. If you type something wrong, it will output the sample usage as follows:
 
-    ```
-    AllstateClaimsSeverityRandomForestRegressor 1.0
-    Usage: AllstateClaimsSeverityRandomForestRegressor [options]
+```
+AllstateClaimsSeverityRandomForestRegressor 1.0
+Usage: AllstateClaimsSeverityRandomForestRegressor [options]
 
-      --s3AccessKey <value>    The access key for S3
-      --s3SecretKey <value>    The secret key for S3
-      --trainInput <file>      Path to file/directory for training data
-      --testInput <file>       Path to file/directory for test data
-      --outputFile <file>      Path to output file
-      --algoNumTrees <n1[,n2,n3...]>
-                               One or more options for number of trees for RandomForest model. Default: 3
-      --algoMaxDepth <n1[,n2,n3...]>
-                               One or more values for depth limit
-      --algoMaxBins <n1[,n2,n3...]>
-                               One or more values for depth limit
-      --numFolds <value>       Number of folds for K-fold Cross Validation
-      --trainSample <value>    Sample fraction from 0.0 to 1.0 for train data
-      --testSample <value>     Sample fraction from 0.0 to 1.0 for test data
-    ```
+  --s3AccessKey <value>    The access key for S3
+  --s3SecretKey <value>    The secret key for S3
+  --trainInput <file>      Path to file/directory for training data
+  --testInput <file>       Path to file/directory for test data
+  --outputFile <file>      Path to output file
+  --algoNumTrees <n1[,n2,n3...]>
+                           One or more options for number of trees for RandomForest model. Default: 3
+  --algoMaxDepth <n1[,n2,n3...]>
+                           One or more values for depth limit
+  --algoMaxBins <n1[,n2,n3...]>
+                           One or more values for depth limit
+  --numFolds <value>       Number of folds for K-fold Cross Validation
+  --trainSample <value>    Sample fraction from 0.0 to 1.0 for train data
+  --testSample <value>     Sample fraction from 0.0 to 1.0 for test data
+```
 
 #### Running the Scripts on AWS Elastic MapReduce (EMR)
 
