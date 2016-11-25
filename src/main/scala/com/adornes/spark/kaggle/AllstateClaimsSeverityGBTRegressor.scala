@@ -247,13 +247,13 @@ object AllstateClaimsSeverityGBTRegressor {
         c.copy(outputFile = x)).text("Path to output file")
 
       opt[Seq[Int]]("algoMaxIter").valueName("<n1[,n2,n3...]>").action((x, c) =>
-        c.copy(algoMaxIter = x)).text("One or more values for limit of iterations")
+        c.copy(algoMaxIter = x)).text("One or more values for limit of iterations. Default: 30")
 
       opt[Seq[Int]]("algoMaxDepth").valueName("<n1[,n2,n3...]>").action((x, c) =>
-        c.copy(algoMaxDepth = x)).text("One or more values for depth limit")
+        c.copy(algoMaxDepth = x)).text("One or more values for depth limit. Default: 3")
 
       opt[Int]("numFolds").action((x, c) =>
-        c.copy(numFolds = x)).text("Number of folds for K-fold Cross Validation")
+        c.copy(numFolds = x)).text("Number of folds for K-fold Cross Validation. Default: 10")
 
       opt[Double]("trainSample").action((x, c) =>
         c.copy(trainSample = x)).text("Sample fraction from 0.0 to 1.0 for train data")
