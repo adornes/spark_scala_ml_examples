@@ -1,7 +1,14 @@
 Spark Scala Machine Learning Examples
 =====================================
 
-This project aims at demonstrating how to build a [Spark 2.0](https://spark.apache.org/releases/spark-release-2-0-0.html) application with [Scala](http://www.scala-lang.org/) for solving Machine Learning problems, packaged with [SBT](http://www.scala-sbt.org/) and ready to be run locally or on any cloud platform such as [AWS Elastic MapReduce (EMR)](https://aws.amazon.com/emr/).  
+This repository is part of a series on Apache Spark examples, aimed at demonstrating the implementation of Machine Learning solutions in all four different languages supported by Spark. Check the other repositories:
+
+* **Scala**  - You are here!
+* **Python** - [github.com/adornes/spark_python_ml_examples](https://github.com/adornes/spark_python_ml_examples)
+* **Java**   - To be published soon!
+* **R**      - To be published soon!
+
+This repository aims at demonstrating how to build a [Spark 2.0](https://spark.apache.org/releases/spark-release-2-0-0.html) application with [Scala](http://www.scala-lang.org/) for solving Machine Learning problems, packaged with [SBT](http://www.scala-sbt.org/) and ready to be run locally or on any cloud platform such as [AWS Elastic MapReduce (EMR)](https://aws.amazon.com/emr/).
 
 Each Scala script in the package can be run as an individual application, as described in the next sections.  
 
