@@ -211,13 +211,15 @@ object AllstateClaimsSeverityRandomForestRegressor {
     // *****************************************
 
     // Predicts and saves file ready for Kaggle!
-    cvModel.transform(testData)
-      .select("id", "prediction")
-      .withColumnRenamed("prediction", "loss")
-      .coalesce(1)
-      .write.format("csv")
-      .option("header", "true")
-      .save(params.outputFile)
+    if(!params.outputFile.isEmpty){
+      cvModel.transform(testData)
+        .select("id", "prediction")
+        .withColumnRenamed("prediction", "loss")
+        .coalesce(1)
+        .write.format("csv")
+        .option("header", "true")
+        .save(params.outputFile)
+    }
   }
 
 
