@@ -1,12 +1,11 @@
 Spark Scala Machine Learning Examples
 =====================================
 
-This repository is part of a series on Apache Spark examples, aimed at demonstrating the implementation of Machine Learning solutions in all four different languages supported by Spark. Check the other repositories:
+This repository is part of a series on Apache Spark examples, aimed at demonstrating the implementation of Machine Learning solutions in  different programming languages supported by Spark. Java is the only language not covered, due to its many disadvantages (and not a single advantage) compared to the other languages. Check the other repositories:
 
 * **Scala**  - You are here!
 * **Python** - [github.com/adornes/spark_python_ml_examples](https://github.com/adornes/spark_python_ml_examples)
-* **Java**   - To be published soon!
-* **R**      - To be published soon!
+* **R**      - [github.com/adornes/spark_r_ml_examples](https://github.com/adornes/spark_r_ml_examples)
 
 This repository aims at demonstrating how to build a [Spark 2.0](https://spark.apache.org/releases/spark-release-2-0-0.html) application with [Scala](http://www.scala-lang.org/) for solving Machine Learning problems, packaged with [SBT](http://www.scala-sbt.org/) and ready to be run locally or on any cloud platform such as [AWS Elastic MapReduce (EMR)](https://aws.amazon.com/emr/).
 
@@ -147,7 +146,7 @@ Although not so labored in terms of Machine Learning techniques, these scripts p
     val testData = testInput.sample(false, params.testSample).cache
     ```
   
-* By using a custom function *isCateg* the column names are filtered and a [StringIndexer](http://spark.apache.org/docs/latest/ml-features.html#stringindexer) is created for each categorical column, aimed at creating a new numerical column according to the custom function *categNewCol*. Note: It is a weak feature engineering, since it is wrong for a learning model to assume that the categories have an order among them (one is greater or less than the other). Whenever categories are confirmed to be unordered, it is better to use some other technique such as [StringIndexer](http://spark.apache.org/docs/latest/ml-features.html#onehotencoder), which yields a different new column for each category holding a boolean (0/1) value;
+* By using a custom function *isCateg* the column names are filtered and a [StringIndexer](http://spark.apache.org/docs/latest/ml-features.html#stringindexer) is created for each categorical column, aimed at creating a new numerical column according to the custom function *categNewCol*. Note: It is a weak feature engineering, since it is wrong for a learning model to assume that the categories have an order among them (one is greater or less than the other). Whenever categories are confirmed to be unordered, it is better to use some other technique such as [OneHotEncoder](http://spark.apache.org/docs/latest/ml-features.html#onehotencoder), which yields a different new column for each category holding a boolean (0/1) value;
 
     ```scala
     def isCateg(c: String): Boolean = c.startsWith("cat")
