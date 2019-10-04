@@ -26,6 +26,7 @@ project/project
 project/target
 project/plugins/target
 project/.sbtserver*
+project/build.properties
 target
 .target
 .tmpBin

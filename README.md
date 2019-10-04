@@ -7,13 +7,13 @@ This repository is part of a series on Apache Spark examples, aimed at demonstra
 * **Python** - [github.com/adornes/spark_python_ml_examples](https://github.com/adornes/spark_python_ml_examples)
 * **R**      - [github.com/adornes/spark_r_ml_examples](https://github.com/adornes/spark_r_ml_examples)
 
-This repository aims at demonstrating how to build a [Spark 2.0](https://spark.apache.org/releases/spark-release-2-0-0.html) application with [Scala](http://www.scala-lang.org/) for solving Machine Learning problems, packaged with [SBT](http://www.scala-sbt.org/) and ready to be run locally or on any cloud platform such as [AWS Elastic MapReduce (EMR)](https://aws.amazon.com/emr/).
+This repository aims at demonstrating how to build a [Spark 2.4](https://spark.apache.org/docs/latest/) application with [Scala](http://www.scala-lang.org/) for solving Machine Learning problems, packaged with [SBT](http://www.scala-sbt.org/) and ready to be run locally or on any cloud platform such as [AWS Elastic MapReduce (EMR)](https://aws.amazon.com/emr/).
 
 Each Scala script in the package can be run as an individual application, as described in the next sections.  
 
 ### Why Spark?
 
-Since almost all personal computers nowadays have many Gigabytes of RAM (and it is in an accelerated growing) and powerful CPUs and GPUs, many real-world machine learning problems can be solved with a single computer and frameworks such as [ScikitLearn](http://scikit-learn.org/), with no need of a distributed system, this is, a cluster of many computers. Sometimes, though, data grows and keeps growing. Who never heard the term "Big Data"? When it happens, a non-distributed/scalable solution may solve for a short time, but afterwards such solution will need to be reviewed and maybe significantly changed.
+Since almost all personal computers nowadays have many Gigabytes of RAM (and it is in an accelerated growth) and powerful CPUs and GPUs, many real-world machine learning problems can be solved with a single computer and frameworks such as [ScikitLearn](http://scikit-learn.org/), with no need of a distributed system, this is, a cluster of many computers. Sometimes, though, data grows and keeps growing. Who never heard the term "Big Data"? When it happens, a non-distributed/scalable solution may solve for a short time, but afterwards such solution will need to be reviewed and maybe significantly changed.
 
 Spark started as a research project at [UC Berkeley](http://www.berkeley.edu/) in the [AMPLab](https://amplab.cs.berkeley.edu/), a research group that focuses on big data analytics. Since then, it became an [Apache](https://www.apache.org/) project and has delivered many new releases, reaching a consistent maturity with a wide range of functionalities. Most of all, Spark can perform data processing over some Gigabytes or hundreds of Petabytes with basically the same programming code, only requiring a proper cluster of machines in the background (check [this link](https://databricks.com/blog/2014/10/10/spark-petabyte-sort.html)). In some very specific cases the developer may need to tune the process by changing granularity of data distribution and other related aspects, but in general there are plenty of providers that automate all this cluster configuration for the developer. For instance, the scripts in this repository used [AWS Elastic MapReduce (EMR)](https://aws.amazon.com/emr/), which plays exactly this role. 
 
@@ -34,12 +34,12 @@ It isn't a surprise that Spark is built precisely over Scala, although it also p
 The competition organizers provide the competitors with more than 300.000 examples with masked and anonymous data consisting of more than 100 categorical and numerical attributes, thus being compliant with confidentiality constraints and still more than enough for building and evaluating a variety of Machine Learning techniques. 
 
 These two Scala scripts obtain the training and test input datasets, from local or [S3](https://aws.amazon.com/s3/details/) environment, and train [Gradient Boosting](https://en.wikipedia.org/wiki/Gradient_boosting) and [Random Forest](https://en.wikipedia.org/wiki/Random_forest) models over it, respectively.
-The objective is to demonstrate the use of [Spark 2.0](https://spark.apache.org/releases/spark-release-2-0-0.html) Machine Learning pipelines with [Scala language](http://www.scala-lang.org/), [S3](https://aws.amazon.com/s3/details/) integration and some general good practices for building Machine Learning models. In order to keep this main objective, more sophisticated techniques (such as a thorough exploratory data analysis and feature engineering) are intentionally omitted.
+The objective is to demonstrate the use of [Spark 2.4](https://spark.apache.org/docs/latest/) Machine Learning pipelines with [Scala language](http://www.scala-lang.org/), [S3](https://aws.amazon.com/s3/details/) integration and some general good practices for building Machine Learning models. In order to keep this main objective, more sophisticated techniques (such as a thorough exploratory data analysis and feature engineering) are intentionally omitted.
 
 
 #### Flow of Execution and Overall Learnings
 
-Although not so labored in terms of Machine Learning techniques, these scripts provide many important learnings for building ML applications with Spark 2.0, Scala, SBT and finally running it. Some learnings are detailed as follows:  
+Although not so labored in terms of Machine Learning techniques, these scripts provide many important learnings for building ML applications with Spark 2.4, Scala, SBT and finally running it. Some learnings are detailed as follows:  
  
 * Both scripts provide a sophisticated command line interface with [scopt](https://github.com/scopt/scopt), through which the runtime can be configured with specific named parameters. It is detailed in the section [Running the Scripts Locally](#running-the-scripts-locally). You must add this to your `build.sbt` file:
 
@@ -97,7 +97,7 @@ Although not so labored in terms of Machine Learning techniques, these scripts p
        ...
     ```
 
-* *SparkSession.builder* is used for building a *Spark session*. It was introduced in Spark 2.0 and is recommended to be used in place of the old *SparkConf* and *SparkContext*. [This link](https://databricks.com/blog/2016/08/15/how-to-use-sparksession-in-apache-spark-2-0.html) provides a good description of this new strategy and the equivalence with the old one.
+* *SparkSession.builder* is used for building a *Spark session*. It was introduced in Spark 2.4 and is recommended to be used in place of the old *SparkConf* and *SparkContext*. [This link](https://databricks.com/blog/2016/08/15/how-to-use-sparksession-in-apache-spark-2-0.html) provides a good description of this new strategy and the equivalence with the old one.
     
     ```scala
     val sparkSession = SparkSession.builder.
@@ -178,7 +178,7 @@ Although not so labored in terms of Machine Learning techniques, these scripts p
       .setOutputCol("features")
     ```
   
-* The very last stage in the pipeline is the regression model, which in these scripts is [GBTRegressor](http://spark.apache.org/docs/2.0.1/api/java/org/apache/spark/ml/regression/GBTRegressor.html) and [RandomForestRegressor](http://spark.apache.org/docs/2.0.1/api/java/org/apache/spark/ml/regression/RandomForestRegressor.html).
+* The very last stage in the pipeline is the regression model, which in these scripts is [GBTRegressor](http://spark.apache.org/docs/2.4.4/api/java/org/apache/spark/ml/regression/GBTRegressor.html) and [RandomForestRegressor](http://spark.apache.org/docs/2.4.4/api/java/org/apache/spark/ml/regression/RandomForestRegressor.html).
 
     ```scala
     val algo = new RandomForestRegressor().setFeaturesCol("features").setLabelCol("label")
@@ -222,7 +222,7 @@ Although not so labored in terms of Machine Learning techniques, these scripts p
     val featureImportances = bestModel.stages.last.asInstanceOf[RandomForestRegressionModel].featureImportances.toArray
     ```
   
-* Finally, the model can be used to predict the answer for the *test* dataset and save a csv file ready to be submitted on Kaggle! Again, Spark 2.0 simplifies the process. The function `coalesce` gathers all partitions into 1 only, thus saving a single output file (not many). 
+* Finally, the model can be used to predict the answer for the *test* dataset and save a csv file ready to be submitted on Kaggle! Again, Spark 2.4 simplifies the process. The function `coalesce` gathers all partitions into 1 only, thus saving a single output file (not many). 
  
     ```scala
     cvModel.transform(testData)
@@ -237,10 +237,17 @@ Although not so labored in terms of Machine Learning techniques, these scripts p
 
 #### Running the Scripts Locally
 
-Assuming you have your local environment all set up with Java 8 or higher, Scala 2.11.x and Spark 2.0, you can run the desired script (here, AllstateClaimsSeverityRandomForestRegressor) with the following command structure:
+Assuming you have your local environment all set up with Java 8 or higher, Scala 2.11.x, Spark 2.4 and [SBT](https://www.scala-sbt.org/), you can build the project with *sbt assembly*, which creates a *fat* JAR of your project with all of its dependencies (this is needed for running on AWS later). 
+You will be able to find the JAR file in this path:
 
 ```
-spark-submit --class com.adornes.spark.kaggle.AllstateClaimsSeverityRandomForestRegressor the_jar_file.jar --s3AccessKey YOUR_AWS_ACCESS_KEY_HERE --s3SecretKey YOUR_AWS_SECRET_KEY_HERE --trainInput "file:///path/to/the/train.csv" --testInput "file:///path/to/the/test.csv" --outputFile  "file:///path/to/any/name/for/submission.csv" --algoNumTrees 3 --algoMaxDepth 3 --algoMaxBins 32 --numFolds 5 --trainSample 0.01 --testSample 0.01
+target/scala-2.11/Spark Scala Machine Learning Examples-assembly-1.0.jar
+```
+
+Having successfully built the JAR file, you can run the desired script (here, AllstateClaimsSeverityRandomForestRegressor) with the following command structure:
+
+```
+spark-submit --class com.adornes.spark.kaggle.AllstateClaimsSeverityRandomForestRegressor target/scala-2.11/Spark Scala Machine Learning Examples-assembly-1.0.jar --s3AccessKey YOUR_AWS_ACCESS_KEY_HERE --s3SecretKey YOUR_AWS_SECRET_KEY_HERE --trainInput "file:///path/to/the/train.csv" --testInput "file:///path/to/the/test.csv" --outputFile  "file:///path/to/any/name/for/submission.csv" --algoNumTrees 3 --algoMaxDepth 3 --algoMaxBins 32 --numFolds 5 --trainSample 0.01 --testSample 0.01
 ```
 
 As previously mentioned, [scopt](https://github.com/scopt/scopt) is the tool that enables the nice names for parameters at command line. If you type something wrong, it will output the sample usage as follows:
